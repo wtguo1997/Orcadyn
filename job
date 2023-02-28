@@ -1,0 +1,28 @@
+#!/bin/bash
+#SBATCH --partition=shared  
+#SBATCH --nodes=1  
+#SBATCH --ntasks-per-node=24
+#SBATCH --export=ALL
+#SBATCH -t 48:00:00
+#SBATCH --mail-type=END,FAIL
+#SBATCH --mail-user=wtguo@ucdavis.edu
+#SBATCH --job-name="fullcat_DP_CA_n0"
+#SBATCH --account=ucd114
+
+set echo
+cd $SLURM_SUBMIT_DIR
+echo SLURM_SUBMIT_DIR:
+echo $SLURM_SUBMIT_DIR
+export origdir=$SLURM_SUBMIT_DIR 
+export scratchdir=/scratch/$USER/job_$SLURM_JOB_ID
+export orcaroot='/home/zhtfeng/bin/software/orca_4_2_1'
+export RandGenerator=~/bin/randgen
+module load openmpi
+
+
+export proggramdir=~/test/davies_fullcat_CA/n0
+export freqfile=~/test/davies_fullcat_CA/n0/Cl_CA_TSopt_freq.out
+
+~/test/davies_fullcat_CA/n0/progdynstarterHP 
+#cp $scratch/* ./                
+#rm -rf $scratchdir
